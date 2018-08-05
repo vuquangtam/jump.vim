@@ -30,7 +30,7 @@ function! s:JumpGuard()
 endfunction
 
 function! s:JumpCommand(cmd, args)
-  return system("sh -c 'source " . g:autojump_executable . " && " . a:cmd . " " . a:args . " > /dev/null && pwd'")
+  return system("bash -c 'source " . g:autojump_executable . " && " . a:cmd . " " . a:args . " > /dev/null && pwd'")
 endfunction
 
 function! s:JumpExtractArgs(rawArgs)
@@ -61,14 +61,14 @@ function! s:JumpCd(cmd, ...)
   if v:shell_error != 0
     echo "directory '" . args . "' not found" 
   else
-    exe 'cd '.escape(path, ' ')
+    exe 'edit '.escape(path, ' ')
     pwd
   endif
 endfunction
 
 function! s:Cd(path)
   call s:JumpCommand('autojump -a', a:path)
-  exe 'cd '.a:path
+  exe 'edit '.a:path
 endfunction
 
 function! s:JumpCompletion(A,L,P)
